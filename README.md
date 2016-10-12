@@ -10,30 +10,30 @@ spark-word2vec creates vector representation of words in a text corpus. It is ba
 ## Scala API
 ```scala
 val conf = new SparkConf()
-      .setAppName("Word2Vec example")
-      .setMaster("local[4]")
-    val sc = new SparkContext(conf)
-    val vectorsSize = 100
+  .setAppName("Word2Vec example")
+  .setMaster("local[4]")
+val sc = new SparkContext(conf)
+val vectorsSize = 100
 
-    // Input data: Each row is a bag of words from a sentence or document.
-    val documentDF = sc.textFile("/home/linchen/text8").map(_.split(" ").toSeq)
+// Input data: Each row is a bag of words from a sentence or document.
+val documentDF = sc.textFile("/home/linchen/text8").map(_.split(" ").toSeq)
 
-    val startTime = System.currentTimeMillis()
-    // Learn a mapping from words to Vectors.
-    val model = new Word2Vec()
-      .setVectorSize(vectorsSize)
-      .setWindowSize(5)
-      .setNumIterations(4)
-      .setMinCount(0)
-      .setCBOW(0)
-      .setHS(0)
-      .setNegative(5)
-      .setNumPartitions(1)
-      .setSample(1e-3)
-      .fit(documentDF)
-    val endTime = System.currentTimeMillis()
+val startTime = System.currentTimeMillis()
+// Learn a mapping from words to Vectors.
+val model = new Word2Vec()
+  .setVectorSize(vectorsSize)
+  .setWindowSize(5)
+  .setNumIterations(4)
+  .setMinCount(0)
+  .setCBOW(0)
+  .setHS(0)
+  .setNegative(5)
+  .setNumPartitions(1)
+  .setSample(1e-3)
+  .fit(documentDF)
+val endTime = System.currentTimeMillis()
 
-    println("Total time = " + (endTime - startTime) / 1000.0 + "s")
+println("Total time = " + (endTime - startTime) / 1000.0 + "s")
 ```
 
 # Requirements
